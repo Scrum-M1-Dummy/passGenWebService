@@ -10,6 +10,9 @@ gunicorn can be installed via:
 """
 import logging
 import os
+import secrets
+import string
+
 
 from flask import Flask, jsonify, request
 
@@ -41,11 +44,15 @@ def test():
     Returns the request
     """
 
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(8))
+
     # Get POST json data
     json = request.get_json()
 
     response = {'STATUS': "Success",
                 'request': json,
+                'password': password,
                 }
     return jsonify(response)  # response must be json serializable!
 
