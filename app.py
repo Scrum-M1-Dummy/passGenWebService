@@ -8,24 +8,15 @@ gunicorn can be installed via:
     $ pip install gunicorn
 
 """
-import os
-from pathlib import Path
 import logging
-from sources.Main.utilitaires.logger import LoggingLogger
-from sources.Main.utilitaires.keys import *
-import json as jsn
+import os
 
-from IPython.core.display import JSON
-from flask import Flask, jsonify, request, abort
-import sklearn
-import pandas as pd
-import numpy as np
-import joblib
-import datetime
+from flask import Flask, jsonify, request
 
 from sources.LANG.log_string import *
 from sources.LANG.msg_string import *
-import sources
+from sources.Main.utilitaires.keys import *
+from sources.Main.utilitaires.logger import LoggingLogger
 
 # Chemin du fichier de log
 LOG_FILE = os.environ.get("FLASK_LOG", "flask.log")
