@@ -14,7 +14,7 @@ import secrets
 import string
 
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,render_template
 
 from sources.LANG.log_string import *
 from sources.LANG.msg_string import *
@@ -35,6 +35,13 @@ def before_first_request():
 
     # DONE: any other initialization before the first request (e.g. load default model)
     pass
+
+
+@app.route('/')
+def home():
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(8))
+    return render_template('home.html',password=password,title='Bonjour',description="stuff idk")
 
 @app.route("/test", methods=["GET"])
 def test():
