@@ -26,6 +26,11 @@ app = Flask(__name__)
 logger = None
 
 
+def get_password(length):
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(8))
+    return password
+
 @app.before_first_request
 def before_first_request():
     """
@@ -39,9 +44,7 @@ def before_first_request():
 
 @app.route('/')
 def home():
-    alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(8))
-    return render_template('home.html',password=password,title='Bonjour',description="stuff idk")
+    return render_template('home.html',password=get_password(0),title='Bonjour',description="stuff idk")
 
 @app.route("/test", methods=["GET"])
 def test():
@@ -51,9 +54,8 @@ def test():
     Returns the request
     """
 
-    alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(8))
-
+    
+    password=get_password(0)
     # Get POST json data
     json = request.get_json()
 
