@@ -42,9 +42,11 @@ def before_first_request():
     pass
 
 
-@app.route('/')
+@app.route('/',methods=["GET"])
 def home():
-    return render_template('home.html',password=get_password(3),title='Bonjour',description="stuff idk")
+    length = int(request.args.get('length'))
+    password=get_password(length)
+    return render_template('home.html',password=password,title='Bonjour',description="stuff idk")
 
 @app.route("/test", methods=["GET"])
 def test():
