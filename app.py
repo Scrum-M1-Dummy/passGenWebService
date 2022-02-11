@@ -28,7 +28,7 @@ logger = None
 
 def get_password(length):
     alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(8))
+    password = ''.join(secrets.choice(alphabet) for i in range(length))
     return password
 
 @app.before_first_request
@@ -42,9 +42,11 @@ def before_first_request():
     pass
 
 
-@app.route('/')
+@app.route('/',methods=["GET"])
 def home():
-    return render_template('home.html',password=get_password(0),title='Bonjour',description="stuff idk")
+    length = int(request.args.get('length'))
+    password=get_password(length)
+    return render_template('home.html',password=password,title='Bonjour',description="stuff idk")
 
 @app.route("/test", methods=["GET"])
 def test():
@@ -54,8 +56,8 @@ def test():
     Returns the request
     """
 
-    
-    password=get_password(0)
+    length = int(request.args.get('length'))
+    password=get_password(length)
     # Get POST json data
     json = request.get_json()
 
