@@ -1,6 +1,5 @@
 import secrets
 import string
-import numpy as np
 
 def characterChoice(characterList,ban=False):
     if not(ban):
