@@ -8,7 +8,7 @@ class PassGen:
         if not (ban):
             restrictedAlphabet = characterList
         else:
-            wholeAlphabet = string.digits
+            wholeAlphabet = string.digits + string.ascii_letters
             restrictedAlphabet = ""
             for i in wholeAlphabet:
                 if i not in characterList:
@@ -26,10 +26,12 @@ class PassGen:
         return '-'.join(secrets.choice(alphabet) for i in range(length))
 
     @classmethod
-    def get_password_character_choice(clsclf, length, characterList, ban=False):
-        alphabet = PassGen.get_alphabet_character_choice()
-        return '-'.join(secrets.choice(alphabet) for i in range(length))
+    def get_password_character_choice(cls, length, characterList, ban=False):
+        print(characterList)
+        print(ban)
+        alphabet = PassGen.get_alphabet_character_choice(characterList, ban)
+        return ''.join(secrets.choice(alphabet) for i in range(length))
 
 
 if __name__ == "__main__":
-    print(PassGen.get_password(10))
+    print(PassGen.get_password_character_choice(length=10, characterList="helo", ban=False))
