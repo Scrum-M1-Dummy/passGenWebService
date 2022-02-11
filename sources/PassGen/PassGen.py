@@ -5,6 +5,7 @@ from sources.Data.DataGetter import DataGetter
 class PassGen:
     @classmethod
     def get_password(cls, length):
+        # alphabet = string.ascii_letters + string.digits
         alphabet = DataGetter.get_french_words()
         return '-'.join(secrets.choice(alphabet) for i in range(length))
 
