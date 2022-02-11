@@ -50,7 +50,8 @@ def test():
     # Get POST json data
     json = request.get_json()
 
-    response = {'STATUS': "Success",
+    response = {'Access-Control-Allow-Origin': "*",
+                'STATUS': "Success",
                 'request': json,
                 'password': password,
                 }

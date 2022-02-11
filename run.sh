@@ -1,1 +1,1 @@
-docker run --publish 8080:8080 serving
+gunicorn --bind 0.0.0.0:8080 app:app
