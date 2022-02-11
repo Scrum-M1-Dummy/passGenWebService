@@ -13,6 +13,8 @@ import os
 import secrets
 import string
 
+from sources.PassGen.PassGen import PassGen
+
 
 from flask import Flask, jsonify, request,render_template
 
@@ -25,12 +27,6 @@ LOG_FILE = os.environ.get("FLASK_LOG", "flask.log")
 app = Flask(__name__)
 logger = None
 
-
-def get_password(length):
-    alphabet = string.ascii_letters + string.digits
-    password = ''.join(secrets.choice(alphabet) for i in range(length))
-    return password
-
 @app.before_first_request
 def before_first_request():
     """
@@ -42,11 +38,11 @@ def before_first_request():
     pass
 
 
-@app.route('/',methods=["GET"])
+@app.route('/', methods=["GET"])
 def home():
     length = int(request.args.get('length'))
-    password=get_password(length)
-    return render_template('home.html',password=password,title='Bonjour',description="stuff idk")
+    password = PassGen.get_password(length)
+    return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
 @app.route("/test", methods=["GET"])
 def test():
@@ -57,7 +53,7 @@ def test():
     """
 
     length = int(request.args.get('length'))
-    password=get_password(length)
+    password=PassGen.get_password(length)
     # Get POST json data
     json = request.get_json()
 

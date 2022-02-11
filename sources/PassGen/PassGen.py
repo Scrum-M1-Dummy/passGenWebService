@@ -3,11 +3,11 @@ import secrets
 from sources.Data.DataGetter import DataGetter
 
 class PassGen:
-    def gen_passwd(self):
+    @classmethod
+    def get_password(cls, length):
         alphabet = DataGetter.get_french_words()
-        return '-'.join(secrets.choice(alphabet) for i in range(8))
+        return '-'.join(secrets.choice(alphabet) for i in range(length))
 
 
 if __name__ == "__main__":
-    pg = PassGen()
-    print(pg.gen_passwd())
+    print(PassGen.get_password(10))
