@@ -44,6 +44,14 @@ def home():
     password = PassGen.get_password(length)
     return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
+'''@app.route('/character_choice', methods=["GET"])
+def get_password_character_choice():
+    length = int(request.args.get('length'))
+    characterList = request.args.get('characterList')
+    ban = request.args.get('ban')
+    password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+    return render_template('home.html', password=password, title='Bonjour', description="stuff idk")'''
+
 @app.route("/test", methods=["GET"])
 def test():
     """
