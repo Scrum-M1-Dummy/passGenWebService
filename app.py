@@ -48,10 +48,10 @@ def home():
 def get_password_character_choice():
     length = int(request.args.get('length'))
     characterList = request.args.get('characterList')
-    ban = request.args.get('ban').lower() == "true"
-    print(ban)
+    characterSelectionMethod = request.args.get('ban').lower()
+    print(characterSelectionMethod)
 
-    password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+    password = PassGen.get_password_character_choice(length=length, characterList=characterList, characterSelectionMethod=characterSelectionMethod)
     return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
 @app.route("/test", methods=["GET"])
