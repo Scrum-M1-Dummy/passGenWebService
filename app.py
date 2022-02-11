@@ -54,7 +54,7 @@ def test():
     alphabet = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(alphabet) for i in range(8))
 
-    # Get POST json data
+    # Get POST json Data
     json = request.get_json()
 
     response = {'Access-Control-Allow-Origin': "*",
