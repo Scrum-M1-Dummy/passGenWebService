@@ -1,34 +1,24 @@
 import importlib
 import inspect
+from collections import defaultdict
 
 module_base = "sources.LANG."
 
 LANG_MSG_SOURCE = 'LANG_MSG_ANG'
 LANG_MSG_SOURCE_ROLLBACK = 'LANG_MSG_ANG'
 
+
+# noinspection PyBroadException
 try:
-    try:
-        STRINGS_MSG = importlib.import_module(module_base + LANG_MSG_SOURCE).STRINGS_MSG
-    except:
-        try:
-            STRINGS_MSG = importlib.import_module('sources.' + module_base + LANG_MSG_SOURCE).STRINGS_MSG
-        except:
-            STRINGS_MSG = importlib.import_module('LANG.' + LANG_MSG_SOURCE).STRINGS_MSG
-except:
-    try:
-        STRINGS_MSG = importlib.import_module(module_base + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
-    except:
-        try:
-            STRINGS_MSG = importlib.import_module('sources.' + module_base + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
-        except:
-            STRINGS_MSG = importlib.import_module('LANG.' + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
+    STRINGS_MSG = importlib.import_module(module_base + LANG_MSG_SOURCE).STRINGS_MSG
+except Exception as e:
+    STRINGS_MSG = importlib.import_module(module_base + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
+
+# noinspection PyBroadException
 try:
     STRING_MSG_ROLLBACK = importlib.import_module(module_base + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
-except:
-    try:
-        STRING_MSG_ROLLBACK = importlib.import_module('sources.' + module_base + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
-    except:
-        STRING_MSG_ROLLBACK = importlib.import_module('LANG.' + LANG_MSG_SOURCE_ROLLBACK).STRINGS_MSG
+except Exception as e:
+    STRING_MSG_ROLLBACK = defaultdict("ERROR : NO LANG FILE FOUND")
 
 
 def launch_msg_lang(lang_source):
@@ -42,9 +32,10 @@ def get_lang_msg_source():
 
 
 def construct_string(*kwargs):
+    # noinspection PyBroadException
     try:
         return STRINGS_MSG[inspect.stack()[1][3]].format(*kwargs)
-    except:
+    except Exception as e:
         return STRING_MSG_ROLLBACK[inspect.stack()[1][3]].format(*kwargs)
 
 
@@ -115,32 +106,42 @@ def MSG_LAST_GAME_TIME_IS(last_game_time):
 def MSG_WAIT_FOR_THE_DOWNLOAD(wait_time_with_unit):
     return construct_string(wait_time_with_unit)
 
+
 def W_MODEL_IS():
     return construct_string()
+
 
 def W_WORKSPACE_IS():
     return construct_string()
 
+
 def W_VALUES_ARE():
     return construct_string()
+
 
 def W_CLICK_ME():
     return construct_string()
 
+
 def W_LANG():
     return construct_string()
+
 
 def W_DOWNLOAD_MODEL():
     return construct_string()
 
+
 def W_PREDICT():
     return construct_string()
+
 
 def W_LOAD_DATA():
     return construct_string()
 
+
 def W_RESET():
     return construct_string()
+
 
 def W_CHANGE_LANG():
     return construct_string()

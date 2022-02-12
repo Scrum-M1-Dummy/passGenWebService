@@ -1,36 +1,25 @@
 import importlib
 import inspect
+from collections import defaultdict
 
 module_base = "sources.LANG."
 
 LANG_LOG_SOURCE = 'LANG_LOG_ANG'
 LANG_LOG_SOURCE_ROLLBACK = 'LANG_LOG_ANG'
 
+
+# noinspection PyBroadException
 try:
-    try:
-        STRINGS_LOG = importlib.import_module(module_base + LANG_LOG_SOURCE).STRINGS_LOG
-    except:
-        try:
-            STRINGS_LOG = importlib.import_module('sources.' + module_base + LANG_LOG_SOURCE).STRINGS_LOG
-        except:
-            STRINGS_LOG = importlib.import_module('LANG.' + LANG_LOG_SOURCE).STRINGS_LOG
+    STRINGS_LOG = importlib.import_module(module_base + LANG_LOG_SOURCE).STRINGS_LOG
+except Exception as e:
+    STRINGS_LOG = importlib.import_module(module_base + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
 
-except:
-    try:
-        STRINGS_LOG = importlib.import_module(module_base + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
-    except:
-        try:
-            STRINGS_LOG = importlib.import_module('sources.' + module_base + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
-        except:
-            STRINGS_LOG = importlib.import_module('LANG.' + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
 
+# noinspection PyBroadException
 try:
     STRING_LOG_ROLLBACK = importlib.import_module(module_base + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
-except:
-    try:
-        STRINGS_LOG = importlib.import_module('sources.' + module_base + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
-    except:
-        STRINGS_LOG = importlib.import_module('LANG.' + LANG_LOG_SOURCE_ROLLBACK).STRINGS_LOG
+except Exception as e:
+    STRING_LOG_ROLLBACK = defaultdict("ERROR : NO LANG FILE FOUND")
 
 
 def launch_log_lang(lang_source):
@@ -38,14 +27,16 @@ def launch_log_lang(lang_source):
     LANG_LOG_SOURCE = lang_source
     STRINGS_LOG = importlib.import_module(module_base + lang_source).STRINGS_LOG
 
+
 def get_lang_log_source():
     return LANG_LOG_SOURCE
 
 
 def construct_string(*kwargs):
+    # noinspection PyBroadException
     try:
         return STRINGS_LOG[inspect.stack()[1][3]].format(*kwargs)
-    except:
+    except Exception as e:
         return STRING_LOG_ROLLBACK[inspect.stack()[1][3]].format(*kwargs)
 
 
@@ -116,11 +107,14 @@ def LOG_MSG_LANG_CHANGED_SUCCESSFULLY(lang_name):
 def LOG_MSG_LANG_CHANGE_ERROR(lang_name):
     return construct_string(lang_name)
 
+
 def LOG_NO_NEW_DATA_AVAILABLE(last_game_time):
     return construct_string(last_game_time)
 
+
 def LOG_NEW_DATA_SENT(last_game_time):
     return construct_string(last_game_time)
+
 
 def LOG_PREDICTION_IMPOSSIBLE(model_name):
     return construct_string(model_name)

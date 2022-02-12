@@ -8,24 +8,14 @@ gunicorn can be installed via:
     $ pip install gunicorn
 
 """
-import logging
-import os
-import secrets
-import string
+
+from flask import Flask, jsonify, request, render_template
 
 from sources.PassGen.PassGen import PassGen
 
-
-from flask import Flask, jsonify, request,render_template
-
-from sources.LANG.log_string import *
-from sources.LANG.msg_string import *
-
-# Chemin du fichier de log
-LOG_FILE = os.environ.get("FLASK_LOG", "flask.log")
-
 app = Flask(__name__)
 logger = None
+
 
 @app.before_first_request
 def before_first_request():
@@ -40,29 +30,31 @@ def before_first_request():
 
 @app.route('/', methods=["GET"])
 def home():
-    try:
-        method = request.args.get('method')
-    except:
+    method = request.args.get('method')
+    if method is None:
         return render_template('error.html', title='Bonjour', description="stuff idk")
+
     length = int(request.args.get('length'))
     if method == "words":
-        password = PassGen.get_password(length)
+        password = PassGen.get_password_words(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "caracters":
-        characterList = request.args.get('characterList')
+        character_list = request.args.get('character_list')
         ban = request.args.get('ban').lower() == "true"
 
-        password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+        password = PassGen.get_password_character_choice(length=length, character_list=character_list, ban=ban)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+
 
 @app.route('/character_choice', methods=["GET"])
 def get_password_character_choice():
     length = int(request.args.get('length'))
-    characterList = request.args.get('characterList')
+    characterList = request.args.get('character_list')
     ban = request.args.get('ban').lower() == "true"
 
-    password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+    password = PassGen.get_password_character_choice(length=length, character_list=characterList, ban=ban)
     return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+
 
 @app.route("/test", methods=["GET"])
 def test():
@@ -73,7 +65,7 @@ def test():
     """
 
     length = int(request.args.get('length'))
-    password=PassGen.get_password(length)
+    password = PassGen.get_password_words(length)
     # Get POST json data
     json = request.get_json()
 
@@ -82,4 +74,3 @@ def test():
                 'password': password,
                 }
     return jsonify(response)  # response must be json serializable!
-
