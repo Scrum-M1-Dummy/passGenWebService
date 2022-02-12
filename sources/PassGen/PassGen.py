@@ -5,16 +5,20 @@ from sources.Data.DataGetter import DataGetter
 
 class PassGen:
     @classmethod
-    def get_alphabet_character_choice(cls, character_list, ban=False):
-        if ban:
-            whole_alphabet = string.digits + string.ascii_letters
-            restricted_alphabet = ""
-            for i in whole_alphabet:
-                if i not in character_list:
-                    restricted_alphabet += i
+    def get_alphabet_character_choice(cls, characterList, characterSelectionMethod="ban"):
+        # characterSelectionMethod :
+        # only : use only characters in the list
+        # ban : remove characters from the list
+        # must : characters from the list are needed
+        if characterSelectionMethod == "ban":
+            wholeAlphabet = string.digits + string.ascii_letters
+            restrictedAlphabet = ""
+            for i in wholeAlphabet:
+                if i not in characterList:
+                    restrictedAlphabet += i
         else:
-            restricted_alphabet = character_list
-        return restricted_alphabet
+            restrictedAlphabet = characterList
+        return restrictedAlphabet
 
     @classmethod
     def get_alphabet_french_words(cls):
@@ -27,12 +31,12 @@ class PassGen:
         return '-'.join(secrets.choice(alphabet) for i in range(length))
 
     @classmethod
-    def get_password_character_choice(cls, length, character_list, ban=False):
-        print(character_list)
-        print(ban)
-        alphabet = PassGen.get_alphabet_character_choice(character_list, ban)
+    def get_password_character_choice(cls, length, characterList, characterSelectionMethod="ban"):
+        print(characterList)
+        print(characterSelectionMethod)
+        alphabet = PassGen.get_alphabet_character_choice(characterList, characterSelectionMethod)
         return ''.join(secrets.choice(alphabet) for i in range(length))
 
 
 if __name__ == "__main__":
-    print(PassGen.get_password_character_choice(length=10, character_list="helo", ban=False))
+    print(PassGen.get_password_character_choice(length=10, characterList="helo", characterSelectionMethod="ban"))

@@ -39,7 +39,7 @@ def home():
         password = PassGen.get_password_words(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "caracters":
-        character_list = request.args.get('character_list')
+        character_list = request.args.get('characterList')
         ban = request.args.get('ban').lower() == "true"
 
         password = PassGen.get_password_character_choice(length=length, character_list=character_list, ban=ban)
@@ -49,10 +49,14 @@ def home():
 @app.route('/character_choice', methods=["GET"])
 def get_password_character_choice():
     length = int(request.args.get('length'))
-    characterList = request.args.get('character_list')
+    characterList = request.args.get('characterList')
     ban = request.args.get('ban').lower() == "true"
+    characterList = request.args.get('characterList')
+    characterSelectionMethod = request.args.get('ban').lower()
+    print(characterSelectionMethod)
 
     password = PassGen.get_password_character_choice(length=length, character_list=characterList, ban=ban)
+    password = PassGen.get_password_character_choice(length=length, characterList=characterList, characterSelectionMethod=characterSelectionMethod)
     return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
 
