@@ -24,12 +24,26 @@ def before_first_request():
     setup logging handler, etc.)
     """
 
-    # DONE: any other initialization before the first request (e.g. load default model)
+    # TODO: any other initialization before the first request (e.g. load default model)
     pass
 
 
 @app.route('/', methods=["GET"])
 def home():
+    """
+    home page
+    Charge une page affichant le mot de passe généré selon les informations transmise via la méthode get
+    paramètres de la requête:
+    _mot de passe contenant des mots_
+    method = "words"
+    length: int
+
+    _mot de passe contenant des caractères_
+    method = "words"
+    length: int
+    characterList: string
+    ban: "only", "ban", "must"
+    """
     method = request.args.get('method')
     if method is None:
         return render_template('error.html', title='Bonjour', description="stuff idk")
@@ -50,6 +64,9 @@ def home():
 
 @app.route('/character_choice', methods=["GET"])
 def get_password_character_choice():
+    """
+    TODO : Delete this entry point
+    """
     length = int(request.args.get('length'))
     character_list = request.args.get('characterList')
     character_selection_method = request.args.get('ban').lower()
@@ -66,10 +83,14 @@ def test():
     """
     Handles POST requests made to http://IP_ADDRESS:PORT/test
 
-    Returns the request
+    Returns the request and the password in the json format
     """
+    # noinspection PyBroadException
+    try:
+        length = int(request.args.get('length'))
+    except Exception as e:
+        length = 10
 
-    length = int(request.args.get('length'))
     password = PassGen.get_password_words(length)
     # Get POST json data
     json = request.get_json()
