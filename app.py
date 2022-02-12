@@ -40,16 +40,26 @@ def before_first_request():
 
 @app.route('/', methods=["GET"])
 def home():
+    try:
+        method = request.args.get('method')
+    except:
+        return render_template('error.html', title='Bonjour', description="stuff idk")
     length = int(request.args.get('length'))
-    password = PassGen.get_password(length)
-    return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+    if method == "words":
+        password = PassGen.get_password(length)
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+    elif method == "caracters":
+        characterList = request.args.get('characterList')
+        ban = request.args.get('ban').lower() == "true"
+
+        password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
 @app.route('/character_choice', methods=["GET"])
 def get_password_character_choice():
     length = int(request.args.get('length'))
     characterList = request.args.get('characterList')
     ban = request.args.get('ban').lower() == "true"
-    print(ban)
 
     password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
     return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
@@ -67,8 +77,7 @@ def test():
     # Get POST json data
     json = request.get_json()
 
-    response = {'Access-Control-Allow-Origin': "*",
-                'STATUS': "Success",
+    response = {'STATUS': "Success",
                 'request': json,
                 'password': password,
                 }
