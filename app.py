@@ -12,6 +12,7 @@ gunicorn can be installed via:
 from flask import Flask, jsonify, request, render_template
 
 from sources.PassGen.PassGen import PassGen
+from sources.keys import *
 
 app = Flask(__name__)
 logger = None
@@ -47,7 +48,6 @@ def home():
     method = request.args.get('method')
     if method is None:
         return render_template('error.html', title='Bonjour', description="stuff idk")
-
     length = int(request.args.get('length'))
     if method == "words":
         password = PassGen.get_password_words(length)
@@ -60,22 +60,6 @@ def home():
                                                          character_list=character_list,
                                                          character_selection_method=character_selection_method)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
-
-
-@app.route('/character_choice', methods=["GET"])
-def get_password_character_choice():
-    """
-    TODO : Delete this entry point
-    """
-    length = int(request.args.get('length'))
-    character_list = request.args.get('characterList')
-    character_selection_method = request.args.get('ban').lower()
-    print(character_selection_method)
-
-    password = PassGen.get_password_character_choice(length=length,
-                                                     character_list=character_list,
-                                                     character_selection_method=character_selection_method)
-    return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
 
 
 @app.route("/test", methods=["GET"])
@@ -95,8 +79,8 @@ def test():
     # Get POST json data
     json = request.get_json()
 
-    response = {'STATUS': "Success",
-                'request': json,
-                'password': password,
+    response = {STATUS: "Success",
+                REQUEST: json,
+                PASSWORD: password,
                 }
     return jsonify(response)  # response must be json serializable!
