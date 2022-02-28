@@ -52,24 +52,23 @@ def home():
     if method == "words":
         password = PassGen.get_password_words(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
-    elif method == "phrase":
-        password = PassGen.get_password_phrase(length)
+    elif method == "sentence":
+        password = PassGen.get_password_sentence(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "characters":
-        character_list = request.args.get('characterList')
+        '''character_list = request.args.get('characterList')
         character_selection_method = request.args.get('ban').lower()
+        password = get_password_character_choice()'''
+        length = int(request.args.get('length'))
+        characterList = request.args.get('characterList')
+        ban = request.args.get('ban').lower() == "true"
 
+        password = PassGen.get_password_character_choice(length=length, character_list=characterList,
+                                                         desired_entropy=10, character_selection_method=ban)
+        entropy = PassGen.get_password_entropy(password, characterList)
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk",
+                               entropy=round(entropy.real, 3))
 
-@app.route('/character_choice', methods=["GET"])
-def get_password_character_choice():
-    length = int(request.args.get('length'))
-    characterList = request.args.get('characterList')
-    ban = request.args.get('ban').lower() == "true"
-    print(ban)
-    
-    password = PassGen.get_password_character_choice(length=length, characterList=characterList,desired_entropy=10, character_selection_method=character_selection_method)
-    entropy = PassGen.get_password_entropy(password,characterList)
-    return render_template('home.html', password=password, title='Bonjour', description="stuff idk",entropy=round(entropy.real,3))
 @app.route("/test", methods=["GET"])
 def test():
     """

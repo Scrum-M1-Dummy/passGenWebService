@@ -54,7 +54,7 @@ class PassGen:
 
 
     @classmethod
-    def get_password_phrase(cls, length):
+    def get_password_sentence(cls, length):
         """
         @param length: int
             the number of words to put in the password
@@ -70,6 +70,7 @@ class PassGen:
         R = len(characterList)
         E = L * log(R)/log(2)
         return E
+
     @classmethod
     def get_password_character_choice(cls, length, character_list, desired_entropy,character_selection_method="ban"):
         """
