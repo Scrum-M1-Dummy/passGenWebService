@@ -17,10 +17,12 @@ class DataGetter:
             if seplines:
                 words = []
                 content = file.read()
-                reg_groups = re.compile(r"([\w\d\',]*).", flags=re.MULTILINE)
+                reg_groups = re.compile(r"([\w\d\'éàè,]*).", flags=re.MULTILINE)
                 findings = reg_groups.findall(content)
                 for i in range(len(findings)):
-                    findings[i] = findings[i].replace(",", "").replace("et", '').replace("ou", "")
+                    findings[i] = findings[i].replace(",", "")
+                    if findings[i] in ["et", "ou"]:
+                        findings[i] = ""
                 return findings
 
             else:

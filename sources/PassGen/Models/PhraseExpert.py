@@ -37,4 +37,4 @@ class PhraseExpert:
 
 if __name__ == "__main__":
     pe = PhraseExpert(DataGetter.get_apple_text_words())
-    print(pe.gen_phrase(5))
+    print(pe.gen_phrase(10))
