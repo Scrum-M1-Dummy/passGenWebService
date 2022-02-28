@@ -3,28 +3,48 @@ import string
 import secrets
 from sources.Data.DataGetter import DataGetter
 
+
 class PassGen:
     @classmethod
-    def get_alphabet_character_choice(cls, characterList, ban=False):
-        if not (ban):
-            restrictedAlphabet = characterList
+    def get_alphabet_character_choice(cls, character_list, character_selection_method="ban"):
+        """
+        @param character_list: string of the characters to include / exclude
+        @param character_selection_method: string
+            "only" : use only characters in the list
+            "ban" : remove characters from the list
+            "must" : characters from the list are needed
+        @return: string
+            list of the characters to USE for the password
+          """
+        # TODO : handle the "must" value for character_selection_method aka ban
+        if character_selection_method == "ban":
+            whole_alphabet = string.digits + string.ascii_letters
+            restricted_alphabet = ""
+            for i in whole_alphabet:
+                if i not in character_list:
+                    restricted_alphabet += i
         else:
-            wholeAlphabet = string.digits + string.ascii_letters
-            restrictedAlphabet = ""
-            for i in wholeAlphabet:
-                if i not in characterList:
-                    restrictedAlphabet += i
-        return restrictedAlphabet
+            restricted_alphabet = character_list
+        return restricted_alphabet
 
     @classmethod
     def get_alphabet_french_words(cls):
+        """
+        @return: list
+            return a list of french words
+        """
         return DataGetter.get_french_words()
 
     @classmethod
-    def get_password(cls, length):
-        # alphabet = string.ascii_letters + string.digits
+    def get_password_words(cls, length):
+        """
+        @param length: int
+            the number of words to put in the password
+        @return: string
+            a password composed of words separated by "-"
+        """
         alphabet = DataGetter.get_french_words()
-        return '-'.join(secrets.choice(alphabet) for i in range(length))
+        return '-'.join(secrets.choice(alphabet) for _ in range(length))
 
 
     @classmethod
@@ -34,17 +54,28 @@ class PassGen:
         E = L * log(R)/log(2)
         return E
     @classmethod
-    def get_password_character_choice(cls, length, characterList, desired_entropy,ban=False):
-        print(characterList)
-        print(ban)
-        alphabet = PassGen.get_alphabet_character_choice(characterList, ban)
+    def get_password_character_choice(cls, length, character_list, desired_entropy,character_selection_method="ban"):
+        """
+        @param length: int
+            the length of the password
+        @param character_list: string of the characters to include / exclude
+        @param character_selection_method:  string
+            "only" : use only characters in the list
+            "ban" : remove characters from the list
+            "must" : characters from the list are needed
+        @return: string
+            a password with the requirements specified
+        """
+        print(character_list)
+        print(character_selection_method)
+        alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
         password = ''.join(secrets.choice(alphabet) for i in range(length))
         while(PassGen.get_password_entropy(password,characterList).real < desired_entropy):
             password = ''.join(secrets.choice(alphabet) for i in range(length))
-        return ''.join(secrets.choice(alphabet) for i in range(length))
+        return password
 
 
 
 
 if __name__ == "__main__":
-    print(PassGen.get_password_character_choice(length=10, characterList="helo", ban=False))
+    print(PassGen.get_password_character_choice(length=10, character_list="abcd", character_selection_method="ban"))

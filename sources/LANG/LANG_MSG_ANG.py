@@ -26,6 +26,3 @@ STRINGS_MSG = {'MSG_MISSING_KEY': "the ({0}) key should be specified for request
                'W_RESET': 'Reset',
                'W_CHANGE_LANG': "Change language"
                }
-
-
-# gametime
