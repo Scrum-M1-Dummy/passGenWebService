@@ -70,7 +70,7 @@ class PassGen:
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
         password = ''.join(secrets.choice(alphabet) for i in range(length))
-        while(PassGen.get_password_entropy(password,characterList).real < desired_entropy):
+        while(PassGen.get_password_entropy(password,character_list).real < desired_entropy):
             password = ''.join(secrets.choice(alphabet) for i in range(length))
         return password
 
