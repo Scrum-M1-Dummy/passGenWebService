@@ -1,3 +1,4 @@
+from cmath import log
 import string
 import secrets
 from sources.Data.DataGetter import DataGetter
@@ -25,12 +26,24 @@ class PassGen:
         alphabet = DataGetter.get_french_words()
         return '-'.join(secrets.choice(alphabet) for i in range(length))
 
+
     @classmethod
-    def get_password_character_choice(cls, length, characterList, ban=False):
+    def get_password_entropy(passtest,characterList):
+        L = passtest.length()
+        R = characterList.length()
+        E = L * log(R)/log(2)
+        return E
+    @classmethod
+    def get_password_character_choice(cls, length, characterList, desired_entropy,ban=False):
         print(characterList)
         print(ban)
         alphabet = PassGen.get_alphabet_character_choice(characterList, ban)
+        password = ''.join(secrets.choice(alphabet) for i in range(length))
+        while(PassGen.get_password_entropy(password,characterList) < desired_entropy):
+            password = ''.join(secrets.choice(alphabet) for i in range(length))
         return ''.join(secrets.choice(alphabet) for i in range(length))
+
+
 
 
 if __name__ == "__main__":
