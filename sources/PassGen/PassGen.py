@@ -64,6 +64,7 @@ class PassGen:
             a password with the requirements specified
         """
         print(character_list)
+        character_list = list(dict.fromkeys(character_list))
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
         if character_selection_method == METHOD_INCLUDE:
@@ -77,4 +78,4 @@ class PassGen:
 
 
 if __name__ == "__main__":
-    print(PassGen.get_password_character_choice(length=6, character_list="abcd", character_selection_method="include"))
+    print(PassGen.get_password_character_choice(length=6, character_list="abcdaaabe", character_selection_method="include"))
