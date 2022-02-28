@@ -1,3 +1,4 @@
+from cmath import log
 import string
 import secrets
 import random
@@ -50,8 +51,15 @@ class PassGen:
         alphabet = DataGetter.get_french_words()
         return '-'.join(secrets.choice(alphabet) for _ in range(length))
 
+
     @classmethod
-    def get_password_character_choice(cls, length, character_list, character_selection_method="ban"):
+    def get_password_entropy(self,passtest,characterList):
+        L = len(passtest)
+        R = len(characterList)
+        E = L * log(R)/log(2)
+        return E
+    @classmethod
+    def get_password_character_choice(cls, length, character_list, desired_entropy,character_selection_method="ban"):
         """
         @param length: int
             the length of the password
@@ -67,14 +75,17 @@ class PassGen:
         character_list = list(dict.fromkeys(character_list))
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
-        if character_selection_method == METHOD_INCLUDE:
-            mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))
-            for i in range(len(character_list)):
-                r=random.randint(0,len(mdp))
-                mdp=mdp[:r]+character_list[i]+mdp[r:]
-            return mdp
-        else:
-            return ''.join(secrets.choice(alphabet) for _ in range(length))
+        password=""
+        while(PassGen.get_password_entropy(password,character_list).real < desired_entropy) or password="":
+            if character_selection_method == METHOD_INCLUDE:
+                mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))
+                for i in range(len(character_list)):
+                    r=random.randint(0,len(mdp))
+                    mdp=mdp[:r]+character_list[i]+mdp[r:]
+                 password=mdp
+            else:
+                password=''.join(secrets.choice(alphabet) for _ in range(length))
+        return password
 
 
 if __name__ == "__main__":
