@@ -52,6 +52,9 @@ def home():
     if method == "words":
         password = PassGen.get_password_words(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+    elif method == "phrase":
+        password = PassGen.get_password_phrase(length)
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "characters":
         character_list = request.args.get('characterList')
         character_selection_method = request.args.get('ban').lower()

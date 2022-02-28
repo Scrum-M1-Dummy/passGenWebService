@@ -5,6 +5,7 @@ import random
 
 from sources.keys import *
 from sources.Data.DataGetter import DataGetter
+from sources.PassGen.Models.PhraseExpert import PhraseExpert
 
 
 class PassGen:
@@ -51,6 +52,17 @@ class PassGen:
         alphabet = DataGetter.get_french_words()
         return '-'.join(secrets.choice(alphabet) for _ in range(length))
 
+
+    @classmethod
+    def get_password_phrase(cls, length):
+        """
+        @param length: int
+            the number of words to put in the password
+        @return: string
+            a password composed of words separated by "-"
+        """
+        pe = PhraseExpert(DataGetter.get_apple_text_words())
+        return pe.gen_phrase(length)
 
     @classmethod
     def get_password_entropy(self,passtest,characterList):
