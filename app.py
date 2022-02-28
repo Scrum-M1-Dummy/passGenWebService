@@ -53,9 +53,9 @@ def get_password_character_choice():
     ban = request.args.get('ban').lower() == "true"
     print(ban)
     
-    password = PassGen.get_password_character_choice(length=length, characterList=characterList, ban=ban)
+    password = PassGen.get_password_character_choice(length=length, characterList=characterList,desired_entropy=10, ban=ban)
     entropy = PassGen.get_password_entropy(password,characterList)
-    return render_template('home.html', password=password, title='Bonjour', description="stuff idk",entropy=entropy)
+    return render_template('home.html', password=password, title='Bonjour', description="stuff idk",entropy=round(entropy.real,3))
 
 @app.route("/test", methods=["GET"])
 def test():

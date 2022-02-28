@@ -28,9 +28,9 @@ class PassGen:
 
 
     @classmethod
-    def get_password_entropy(passtest,characterList):
-        L = passtest.length()
-        R = characterList.length()
+    def get_password_entropy(self,passtest,characterList):
+        L = len(passtest)
+        R = len(characterList)
         E = L * log(R)/log(2)
         return E
     @classmethod
@@ -39,7 +39,7 @@ class PassGen:
         print(ban)
         alphabet = PassGen.get_alphabet_character_choice(characterList, ban)
         password = ''.join(secrets.choice(alphabet) for i in range(length))
-        while(PassGen.get_password_entropy(password,characterList) < desired_entropy):
+        while(PassGen.get_password_entropy(password,characterList).real < desired_entropy):
             password = ''.join(secrets.choice(alphabet) for i in range(length))
         return ''.join(secrets.choice(alphabet) for i in range(length))
 
