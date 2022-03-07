@@ -29,7 +29,7 @@ class PhraseExpert:
     def pick_random_word(self):
         return self.unique_words[np.random.randint(0, len(self.unique_words))]
 
-    def gen_phrase(self, length):
+    def gen_phrase(self, length,word_delimitor=""):
         phrase = [self.pick_random_word()]
         current_word_index = self.unique_words.index(phrase[0])
         for i in range(length - 1):
@@ -37,13 +37,23 @@ class PhraseExpert:
             if len(words_candidate[0]) > 0:
                 phrase.append(self.unique_words[words_candidate[0][np.random.randint(0, len(words_candidate))]])
             else:
-                phrase.append(".")
+                phrase[-1]+="."
+                # phrase.append(".")
                 phrase.append(self.pick_random_word())
             current_word_index = self.unique_words.index(phrase[-1])
         print(phrase)
-        return " ".join(phrase)
+        password=""
+        for i in phrase:
+            if len(password)>1 and password[len(password)-1]==".":
+                i=i.capitalize()
+            if i[len(i)-1]!=".":
+                password+=i+word_delimitor
+            else:
+                password+=i
+        return password[:len(password)-1]
+        # return word_delimitor.join(phrase)
 
 
 if __name__ == "__main__":
-    pe = PhraseExpert(DataGetter.get_ang_sentences)
-    print(pe.gen_phrase(10))
+    pe = PhraseExpert(DataGetter.get_ang_sentences())
+    print(pe.gen_phrase(10,"-"))
