@@ -14,10 +14,13 @@ class DataGetter:
             a list of words
         """
         stopwords = []
-        file1 = open(dataPath + fileName + ".stop",'r')
-        Lines = file1.readlines()
-        for Line in Lines:
-            stopwords.append(Line)        
+        try:
+            file1 = open(dataPath + fileName + ".stop",'r')
+            Lines = file1.readlines()
+            for Line in Lines:
+                stopwords.append(Line)
+        except FileNotFoundError:
+            pass     
         with open(dataPath + fileName) as file:
             if seplines:
                 words = []
