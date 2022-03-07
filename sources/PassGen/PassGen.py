@@ -42,7 +42,7 @@ class PassGen:
         return DataGetter.get_french_words()
 
     @classmethod
-    def get_password_words(cls, length,word_delimitor=""):
+    def get_password_words(cls, length,word_delimitor="-"):
         """
         @param length: int
             the number of words to put in the password
@@ -50,6 +50,7 @@ class PassGen:
             a password composed of words separated by the word_delimitor
         """
         alphabet = DataGetter.get_french_words()
+
         return word_delimitor.join(secrets.choice(alphabet) for _ in range(length))
 
 
@@ -61,7 +62,7 @@ class PassGen:
         @return: string
             a password composed of words separated by the word_delimitor
         """
-        pe = PhraseExpert(DataGetter.get_apple_text_words())
+        pe = PhraseExpert(DataGetter.get_apple_text_words)
         return pe.gen_phrase(length,word_delimitor)
 
     @classmethod

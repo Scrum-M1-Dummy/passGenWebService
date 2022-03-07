@@ -51,10 +51,14 @@ def home():
     length = int(request.args.get('length'))
     if method == "words":
         word_delimitor = request.args.get('word_delimitor')
+        if word_delimitor is None:
+            word_delimitor=""
         password = PassGen.get_password_words(length,word_delimitor)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "sentence":
         word_delimitor = request.args.get('word_delimitor')
+        if word_delimitor is None:
+            word_delimitor=""
         password = PassGen.get_password_sentence(length,word_delimitor)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "characters":
