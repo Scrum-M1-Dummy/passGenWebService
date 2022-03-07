@@ -31,6 +31,7 @@ class PassGen:
             restricted_alphabet = character_list
         else:       # if method other than ban and only return the whole alphabet
             return whole_alphabet
+
         return restricted_alphabet
 
     @classmethod
@@ -99,7 +100,21 @@ class PassGen:
                 mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))    # create a pass
                 for i in range(len(character_list)):  # add characters that must be included
                     r=random.randint(0,len(mdp))
-                    mdp=mdp[:r]+character_list[i]+mdp[r:]
+                    char=""
+                    if character_list[i]=="\\d":
+                        char=random.choice(string.digits)
+                    if character_list[i]=="\\c":
+                        char=random.choice(string.ascii_lowercase)
+                    if character_list[i]=="\\C":
+                        char=random.choice(string.ascii_lowercase)
+                    if character_list[i]=="\\s":
+                        char=""
+                    if character_list[i]=="\\[dev]":
+                        char=" les devs vous disent bonjour "
+                    else:
+                        char=character_list[i]
+                        print(character_list[i])
+                    mdp=mdp[:r]+char+mdp[r:]
                 password=mdp
             else:
                 password=''.join(secrets.choice(alphabet) for _ in range(length))   # create a password with alphabet

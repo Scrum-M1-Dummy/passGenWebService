@@ -73,7 +73,27 @@ def home():
         character_selection_method = request.args.get('character_selection_method').lower()
         password = get_password_character_choice()'''
         length = int(request.args.get('length'))
-        characterList = request.args.get('characterList')
+        characterString = request.args.get('characterList')
+        characterList=[]
+        ct=0
+        while ct<(len(characterString)):
+            if characterString[ct]=="\\" and ct<(len(characterString)-1):
+                st=""
+                if characterString[ct+1]=="[":
+                    tmp=ct+2
+                    st="\\["
+                    while tmp<(len(characterString)) and characterString[tmp]!="]":
+                        st+=characterString[tmp]
+                        tmp+=1
+                    st+="]"
+                    ct=tmp+1
+                else:
+                    st=characterString[ct]+characterString[ct+1]
+                characterList.append(st)
+                ct+=1
+            else:
+                characterList.append(characterString[ct])
+            ct+=1
         character_selection_method = request.args.get('character_selection_method').lower()
 
         password = PassGen.get_password_character_choice(length=length, character_list=characterList,
