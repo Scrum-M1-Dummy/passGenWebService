@@ -13,6 +13,14 @@ class DataGetter:
         @return: list
             a list of words
         """
+        stopwords = []
+        try:
+            file1 = open(dataPath + fileName + ".stop",'r')
+            Lines = file1.readlines()
+            for Line in Lines:
+                stopwords.append(Line)
+        except FileNotFoundError:
+            pass     
         with open(dataPath + fileName) as file:
             if seplines:
                 words = []
@@ -21,7 +29,7 @@ class DataGetter:
                 findings = reg_groups.findall(content)
                 for i in range(len(findings)):
                     findings[i] = findings[i].replace(",", "")
-                    if findings[i] in ["et", "ou"]:
+                    if findings[i] in Lines:
                         findings[i] = ""
                 return findings
 
@@ -35,6 +43,14 @@ class DataGetter:
             return a list of french words
         """
         return cls.get_words_from_file("french_words.txt")
+
+    @classmethod
+    def get_ang_sentences(cls):
+        """
+        @return: list
+            return a list of english words
+        """
+        return cls.get_words_from_file("ang_sentences.txt", seplines=True)
 
     @classmethod
     def get_apple_text_words(cls):

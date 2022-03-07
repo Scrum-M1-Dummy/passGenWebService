@@ -1,21 +1,30 @@
 from sources.Data.DataGetter import DataGetter
 import numpy as np
+import json
+import os
 
 
 class PhraseExpert:
     def gen_co_occurence_matrice(self):
         self.occ_matrix = np.zeros(shape=(self.nb_unique_words, self.nb_unique_words))
         for i in range(self.nb_corpus_words - 1):
+            #print(i, "/", self.nb_corpus_words - 1)
             if self.corpus[i] != '' and self.corpus[i + 1] != '':
                 self.occ_matrix[self.unique_words.index(self.corpus[i])][self.unique_words.index(self.corpus[i + 1])] += 1
 
-    def __init__(self, corpus):
+    def __init__(self, corpus_getter):
+        corpus = corpus_getter()
         self.corpus = corpus
         self.nb_corpus_words = len(corpus)
         self.unique_words = list(set(corpus))
-        self.unique_words.remove('')
+        # noinspection PyBroadException
+        try:
+            self.unique_words.remove('')
+        except Exception as e:
+            pass
         self.nb_unique_words = len(self.unique_words)
         self.gen_co_occurence_matrice()
+
 
     def pick_random_word(self):
         return self.unique_words[np.random.randint(0, len(self.unique_words))]
@@ -46,5 +55,5 @@ class PhraseExpert:
 
 
 if __name__ == "__main__":
-    pe = PhraseExpert(DataGetter.get_apple_text_words())
+    pe = PhraseExpert(DataGetter.get_ang_sentences())
     print(pe.gen_phrase(10,"-"))
