@@ -10,6 +10,13 @@ from sources.PassGen.Models.PhraseExpert import PhraseExpert
 
 class PassGen:
     @classmethod
+    def get_password_entropy(self, passtest, characterList):
+        L = len(passtest)
+        R = len(characterList)
+        E = L * log(R) / log(2)
+        return E
+
+    @classmethod
     def get_alphabet_character_choice(cls, character_list, character_selection_method="ban"):
         """
         @param character_list: string of the characters to include / exclude
@@ -67,13 +74,6 @@ class PassGen:
         elif lang == "eng":
             pe = PhraseExpert(DataGetter.get_ang_sentences)
         return pe.gen_phrase(length,word_delimitor)
-
-    @classmethod
-    def get_password_entropy(self,passtest,characterList):
-        L = len(passtest)
-        R = len(characterList)
-        E = L * log(R)/log(2)
-        return E
 
     @classmethod
     def get_password_character_choice(cls, length, character_list, desired_entropy,character_selection_method="ban"):
