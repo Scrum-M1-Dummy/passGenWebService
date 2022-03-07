@@ -29,7 +29,7 @@ class DataGetter:
                 findings = reg_groups.findall(content)
                 for i in range(len(findings)):
                     findings[i] = findings[i].replace(",", "")
-                    if findings[i] in Lines:
+                    if findings[i] in stopwords:
                         findings[i] = ""
                 return findings
 
