@@ -65,7 +65,7 @@ def home():
         password = PassGen.get_password_sentence(length, lang, word_delimitor)
         if lang == "fre":
             entropy = PassGen.get_password_entropy(password, DataGetter.get_french_words())
-        elif lang == "ang":
+        elif lang == "eng":
             entropy = PassGen.get_password_entropy(password, DataGetter.get_ang_sentences())
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "characters":
@@ -75,9 +75,11 @@ def home():
         length = int(request.args.get('length'))
         characterList = request.args.get('characterList')
         character_selection_method = request.args.get('character_selection_method').lower()
+        desired_entropy = int(request.args.get('desired_entropy'))
+        print(desired_entropy)
 
         password = PassGen.get_password_character_choice(length=length, character_list=characterList,
-                                                         desired_entropy=10, character_selection_method=character_selection_method)
+                                                         desired_entropy=desired_entropy, character_selection_method=character_selection_method)
         entropy = PassGen.get_password_entropy(password, characterList)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk",
                                entropy=round(entropy.real, 3))

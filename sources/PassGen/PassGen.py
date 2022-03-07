@@ -64,7 +64,7 @@ class PassGen:
         """
         if lang == "fre":
             pe = PhraseExpert(DataGetter.get_apple_text_words)
-        elif lang == "ang":
+        elif lang == "eng":
             pe = PhraseExpert(DataGetter.get_ang_sentences)
         return pe.gen_phrase(length,word_delimitor)
 
@@ -94,6 +94,8 @@ class PassGen:
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)    # get the alphabet depending of the method
         password=""
+        print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
+        print(PassGen.get_password_entropy(password,alphabet).real < desired_entropy)
         while(PassGen.get_password_entropy(password,alphabet).real < desired_entropy) or password == "":    # if password entropy lower than allowed entropy
             if character_selection_method == METHOD_MUST:       # if characters to include
                 mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))    # create a pass
@@ -103,6 +105,8 @@ class PassGen:
                 password=mdp
             else:
                 password=''.join(secrets.choice(alphabet) for _ in range(length))   # create a password with alphabet
+        print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
+        print(PassGen.get_password_entropy(password, alphabet).real < desired_entropy)
         return password
 
 
