@@ -55,5 +55,5 @@ class PhraseExpert:
 
 
 if __name__ == "__main__":
-    pe = PhraseExpert(DataGetter.get_ang_sentences())
-    print(pe.gen_phrase(10,"-"))
+    pe = PhraseExpert(DataGetter.get_ang_sentences)
+    print(pe.gen_phrase(10,""))
