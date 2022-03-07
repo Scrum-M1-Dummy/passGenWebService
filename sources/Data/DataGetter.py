@@ -37,6 +37,14 @@ class DataGetter:
         return cls.get_words_from_file("french_words.txt")
 
     @classmethod
+    def get_ang_sentences(cls):
+        """
+        @return: list
+            return a list of english words
+        """
+        return cls.get_words_from_file("ang_sentences.txt", seplines=True)
+
+    @classmethod
     def get_apple_text_words(cls):
         return cls.get_words_from_file("appleTexte.txt", seplines=True)
 
