@@ -20,16 +20,16 @@ class PassGen:
         @return: string
             list of the characters to USE for the password
           """
-        # TODO : handle the "must" value for character_selection_method aka ban
+
         restricted_alphabet = ""
         whole_alphabet = string.digits + string.ascii_letters
-        if character_selection_method == METHOD_BAN:
+        if character_selection_method == METHOD_BAN:   # ban characters from the list in the alphabet
             for i in whole_alphabet:
                 if i not in character_list:
                     restricted_alphabet += i
-        elif character_selection_method == METHOD_ONLY:
+        elif character_selection_method == METHOD_ONLY:     # use only characters from the list in the alphabet
             restricted_alphabet = character_list
-        else:
+        else:       # if method other than ban and only return the whole alphabet
             return whole_alphabet
         return restricted_alphabet
 
@@ -88,19 +88,19 @@ class PassGen:
 
         # character_list = list(dict.fromkeys(character_list))
         print(character_selection_method)
-        alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
+        alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)    # get the alphabet depending of the method
         password=""
-        while(PassGen.get_password_entropy(password,alphabet).real < desired_entropy) or password == "":
-            if character_selection_method == METHOD_INCLUDE:
-                mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))
-                for i in range(len(character_list)):
+        while(PassGen.get_password_entropy(password,alphabet).real < desired_entropy) or password == "":    # if password entropy lower than allowed entropy
+            if character_selection_method == METHOD_MUST:       # if characters to include
+                mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))    # create a pass
+                for i in range(len(character_list)):  # add characters that must be included
                     r=random.randint(0,len(mdp))
                     mdp=mdp[:r]+character_list[i]+mdp[r:]
                 password=mdp
             else:
-                password=''.join(secrets.choice(alphabet) for _ in range(length))
+                password=''.join(secrets.choice(alphabet) for _ in range(length))   # create a password with alphabet
         return password
 
 
 if __name__ == "__main__":
-    print(PassGen.get_password_character_choice(length=6, character_list="abcdaaabe",desired_entropy=1, character_selection_method="include"))
+    print(PassGen.get_password_character_choice(length=6, character_list="abcdaaabe",desired_entropy=1, character_selection_method="must"))
