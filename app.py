@@ -58,7 +58,7 @@ def home():
         word_delimitor = request.args.get('word_delimitor')
 
         lang = request.args.get('lang')
-        password = PassGen.get_password_sentence(length, word_delimitor, lang)
+        password = PassGen.get_password_sentence(length, lang, word_delimitor)
         if lang == "fre":
             entropy = PassGen.get_password_entropy(password, DataGetter.get_french_words())
         elif lang == "ang":
