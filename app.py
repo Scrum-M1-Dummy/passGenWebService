@@ -51,26 +51,29 @@ def home():
         return render_template('error.html', title='Bonjour', description="stuff idk")
     length = int(request.args.get('length'))
     if method == "words":
-        password = PassGen.get_password_words(length)
+        word_delimitor = request.args.get('word_delimitor')
+        password = PassGen.get_password_words(length,word_delimitor)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "sentence":
+        word_delimitor = request.args.get('word_delimitor')
+
         lang = request.args.get('lang')
-        password = PassGen.get_password_sentence(length, lang)
+        password = PassGen.get_password_sentence(length, word_delimitor, lang)
         if lang == "fre":
             entropy = PassGen.get_password_entropy(password, DataGetter.get_french_words())
         elif lang == "ang":
             entropy = PassGen.get_password_entropy(password, DataGetter.get_ang_sentences())
-        return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "characters":
         '''character_list = request.args.get('characterList')
-        character_selection_method = request.args.get('ban').lower()
+        character_selection_method = request.args.get('character_selection_method').lower()
         password = get_password_character_choice()'''
         length = int(request.args.get('length'))
         characterList = request.args.get('characterList')
-        ban = request.args.get('ban').lower() == "true"
+        character_selection_method = request.args.get('character_selection_method').lower()
 
         password = PassGen.get_password_character_choice(length=length, character_list=characterList,
-                                                         desired_entropy=10, character_selection_method=ban)
+                                                         desired_entropy=10, character_selection_method=character_selection_method)
         entropy = PassGen.get_password_entropy(password, characterList)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk",
                                entropy=round(entropy.real, 3))
