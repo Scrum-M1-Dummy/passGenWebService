@@ -85,7 +85,8 @@ class PassGen:
             a password with the requirements specified
         """
         print(character_list)
-        character_list = list(dict.fromkeys(character_list))
+
+        # character_list = list(dict.fromkeys(character_list))
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)
         password=""
