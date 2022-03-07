@@ -6,7 +6,6 @@ import os
 
 class PhraseExpert:
     def gen_co_occurence_matrice(self):
-        print("nar")
         self.occ_matrix = np.zeros(shape=(self.nb_unique_words, self.nb_unique_words))
         for i in range(self.nb_corpus_words - 1):
             print(i, "/", self.nb_corpus_words - 1)
@@ -63,8 +62,5 @@ class PhraseExpert:
 
 
 if __name__ == "__main__":
-    #pe = PhraseExpert(DataGetter.get_apple_text_words())
-    print("hi")
-    pe = PhraseExpert(DataGetter.get_ang_sentences)
-    print("coucou")
+    pe = PhraseExpert(DataGetter.get_ang_sentences())
     print(pe.gen_phrase(10))

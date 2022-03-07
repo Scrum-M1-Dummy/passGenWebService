@@ -40,7 +40,7 @@ class DataGetter:
     def get_ang_sentences(cls):
         """
         @return: list
-            return a list of french words
+            return a list of english words
         """
         return cls.get_words_from_file("ang_sentences.txt", seplines=True)
 
