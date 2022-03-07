@@ -13,6 +13,7 @@ from flask import Flask, jsonify, request, render_template
 
 from sources.PassGen.PassGen import PassGen
 from sources.keys import *
+from sources.Data.DataGetter import DataGetter
 
 app = Flask(__name__)
 logger = None
@@ -53,8 +54,13 @@ def home():
         password = PassGen.get_password_words(length)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
     elif method == "sentence":
-        password = PassGen.get_password_sentence(length)
-        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+        lang = request.args.get('lang')
+        password = PassGen.get_password_sentence(length, lang)
+        if lang == "fre":
+            entropy = PassGen.get_password_entropy(password, DataGetter.get_french_words())
+        elif lang == "ang":
+            entropy = PassGen.get_password_entropy(password, DataGetter.get_ang_sentences())
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "characters":
         '''character_list = request.args.get('characterList')
         character_selection_method = request.args.get('ban').lower()

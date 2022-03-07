@@ -54,14 +54,17 @@ class PassGen:
 
 
     @classmethod
-    def get_password_sentence(cls, length):
+    def get_password_sentence(cls, length, lang):
         """
         @param length: int
             the number of words to put in the password
         @return: string
             a password composed of words separated by "-"
         """
-        pe = PhraseExpert(DataGetter.get_apple_text_words())
+        if lang == "fre":
+            pe = PhraseExpert(DataGetter.get_apple_text_words)
+        elif lang == "ang":
+            pe = PhraseExpert(DataGetter.get_ang_sentences)
         return pe.gen_phrase(length)
 
     @classmethod
