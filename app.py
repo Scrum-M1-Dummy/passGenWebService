@@ -30,7 +30,7 @@ def before_first_request():
     pass
 
 
-@app.route('/', methods=["GET"])
+@app.route('/gen', methods=["GET"])
 def home():
     """
     home page
@@ -106,3 +106,7 @@ def test():
                 PASSWORD: password,
                 }
     return jsonify(response)  # response must be json serializable!
+
+@app.route("/index", methods=["GET"])
+def index():
+    return render_template("indexTest.html")
