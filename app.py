@@ -52,21 +52,19 @@ def home():
     length = int(request.args.get('length'))
     if method == "words":
         word_delimitor = request.args.get('word_delimitor')
+        desired_entropy = int(request.args.get('desired_entropy'))
         if word_delimitor is None:
             word_delimitor=""
-        password, entropy = PassGen.get_password_words(length,word_delimitor)
+        password, entropy = PassGen.get_password_words(length, word_delimitor, desired_entropy=desired_entropy)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "sentence":
         word_delimitor = request.args.get('word_delimitor')
+        desired_entropy = int(request.args.get('desired_entropy'))
         if word_delimitor is None:
             word_delimitor=""
 
         lang = request.args.get('lang')
-        password = PassGen.get_password_sentence(length, lang, word_delimitor)
-        if lang == "fre":
-            entropy = PassGen.get_password_entropy(password, DataGetter.get_french_words())
-        elif lang == "eng":
-            entropy = PassGen.get_password_entropy(password, DataGetter.get_ang_sentences())
+        password, entropy = PassGen.get_password_sentence(length, lang, word_delimitor, desired_entropy=desired_entropy)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "characters":
         '''character_list = request.args.get('characterList')
