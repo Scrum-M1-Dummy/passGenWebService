@@ -123,7 +123,7 @@ class PassGen:
         password = ""
         entropy = 0
         while ((entropy := PassGen.get_password_entropy(password,
-                                            alphabet).real < desired_entropy)) or password == "":  # if password entropy lower than allowed entropy
+                                            alphabet).real) < desired_entropy) or password == "":  # if password entropy lower than allowed entropy
             print("pass", password)
             print("genEntropy in while:", entropy)
             if character_selection_method == METHOD_MUST:  # if characters to include
