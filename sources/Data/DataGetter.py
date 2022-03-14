@@ -54,6 +54,10 @@ class DataGetter:
 
     @classmethod
     def get_apple_text_words(cls):
+        """
+        Return a list of french words
+        @return: list
+        """
         return cls.get_words_from_file("appleTexte.txt", seplines=True)
 
 

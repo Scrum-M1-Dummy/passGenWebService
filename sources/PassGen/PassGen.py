@@ -11,6 +11,11 @@ from sources.PassGen.Models.PhraseExpert import PhraseExpert
 class PassGen:
     @classmethod
     def get_password_entropy(self, passtest, characterList):
+        """
+        @param passtest: mot de passe à tester
+        @param characterList: liste des caractères possible dans le choix du mot de passe
+        @return: l'entropie du mot de passe
+        """
         L = len(passtest)
         R = len(characterList)
         E = L * log(R) / log(2)

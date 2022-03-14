@@ -6,6 +6,10 @@ import os
 
 class PhraseExpert:
     def gen_co_occurence_matrice(self):
+        """
+        Calcule la matrice de co-occurence des mots du corpus
+        @return: matrice numpy
+        """
         self.occ_matrix = np.zeros(shape=(self.nb_unique_words, self.nb_unique_words))
         for i in range(self.nb_corpus_words - 1):
             #print(i, "/", self.nb_corpus_words - 1)
@@ -27,9 +31,19 @@ class PhraseExpert:
 
 
     def pick_random_word(self):
+        """
+        Retourne un mot aléatoire depuis la liste des mots trouvée dans le corpus
+        @return: string
+        """
         return self.unique_words[np.random.randint(0, len(self.unique_words))]
 
-    def gen_phrase(self, length,word_delimitor=""):
+    def gen_phrase(self, length, word_delimitor=""):
+        """
+        Génère une phrase à partir de la matrice de co-occurence
+        @param length: nombre de mots dans la phrase
+        @param word_delimitor: caractère délimitant les mots des phrases
+        @return:
+        """
         phrase = [self.pick_random_word()]
         current_word_index = self.unique_words.index(phrase[0])
         for i in range(length - 1):
