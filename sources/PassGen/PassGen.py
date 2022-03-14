@@ -2,7 +2,6 @@ from cmath import log
 import string
 import secrets
 import random
-import asyncio
 
 from sources.keys import *
 from sources.Data.DataGetter import DataGetter
@@ -96,7 +95,7 @@ class PassGen:
             a password with the requirements specified
         """
         print(character_list)
-
+        timer=0
         # character_list = list(dict.fromkeys(character_list))
         print(character_selection_method)
         alphabet = PassGen.get_alphabet_character_choice(character_list, character_selection_method)    # get the alphabet depending of the method
@@ -125,7 +124,10 @@ class PassGen:
                     mdp=mdp[:r]+char+mdp[r:]
                 password=mdp
             else:
-                password=''.join(secrets.choice(alphabet) for _ in range(length))   # create a password with alphabet
+                password=''.join(secrets.choice(alphabet) for _ in range(length))
+            timer=timer+1
+            if(timer==360):
+                break   # create a password with alphabet
         print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
         print(PassGen.get_password_entropy(password, alphabet).real < desired_entropy)
         return password
