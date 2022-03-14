@@ -54,8 +54,8 @@ def home():
         word_delimitor = request.args.get('word_delimitor')
         if word_delimitor is None:
             word_delimitor=""
-        password = PassGen.get_password_words(length,word_delimitor)
-        return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
+        password, entropy = PassGen.get_password_words(length,word_delimitor)
+        return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "sentence":
         word_delimitor = request.args.get('word_delimitor')
         if word_delimitor is None:

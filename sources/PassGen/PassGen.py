@@ -55,7 +55,7 @@ class PassGen:
         return DataGetter.get_french_words()
 
     @classmethod
-    def get_password_words(cls, length,word_delimitor="-"):
+    def get_password_words(cls, length, word_delimitor="-"):
         """
         @param length: int
             the number of words to put in the password
@@ -64,7 +64,9 @@ class PassGen:
         """
         alphabet = DataGetter.get_french_words()
 
-        return word_delimitor.join(secrets.choice(alphabet) for _ in range(length))
+        password = word_delimitor.join(secrets.choice(alphabet) for _ in range(length))
+        entropy = PassGen.get_password_entropy(password, alphabet).real
+        return password, entropy
 
 
     @classmethod
