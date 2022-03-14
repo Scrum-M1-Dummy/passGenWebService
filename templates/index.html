@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<style>
+.error {color: #FF0000;}
+</style>
+<head>
+
+  <meta charset="utf-8">
+  <title>Password Generator</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+	<form action="/gen"  method="get">
+		<div class = "left-block">
+
+			<div class = "col-sm-4">
+			</div>
+			<div class = "col-sm-4 text-center">
+				<label>Modèle de mot de passe :</label><br>
+			</div>
+			<div class = "col-sm-4">
+			</div>
+		</div>
+
+		<br>
+		<br>
+
+		<div class = "left-block">
+			<div class = "col-sm-4 ">
+			</div>
+			<div class = "col-sm-4 text-center ">
+
+					<label class="btn btn-primary">
+						<input type="radio" name="method" id="characters" value="characters" autocomplete="off" required> Caractère
+					</label>
+
+					<label class="btn btn-primary">
+						<input type="radio" name="method" id="words" value="words" autocomplete="off" required> Mots
+					</label>
+					<label class="btn btn-primary">
+						<input type="radio" name="method" id="sentence" value="sentence" autocomplete="off" required> Phrase
+					</label>
+
+			</div>
+			<div class = "col-sm-4">
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<br>
+		
+		<div class="left-block">
+		
+			<div class = "col-sm-4">
+
+			</div>
+			<div class = "col-sm-2">
+				<label class="form-label" for="length">Nombre de caractère</label>
+			</div>
+
+			<div class = "col-sm-2 text-right">
+				<a data-toggle="popover" data-content="
+				Permet de choisir l'entropie minimum du mot de passe.<br/>
+				Plus la valeur est élevé plus le mot de passe est sécurisé.<br/>
+				La génération prendra cependant plus de temps.<br/>
+				Si laissé a 0, le premier mot de passe générer sera affiché.<br/>
+				75 est considéré comme une sécurité moyenne.<br/>
+				150 est considéré comme une sécurité forte."
+				   data-html="true" data-placement="left">Sécurité du mot de passe</a>
+
+			</div>
+			<div class = "col-sm-4">
+
+			</div>
+			
+	 	</div>
+
+		<br>
+		<br>
+		<br>
+
+		<div class="left-block"> 
+			<div class = "col-sm-4">
+
+			</div>
+			<div class = "col-sm-2 text-left">
+		 		<input type="Number" name="length" value="0" class="form-control" id="length" required>
+		 	</div>	
+
+			<div class = "col-sm-2 text-right">
+				<input type="Number" name="desired_entropy" value="0" class="form-control" id="desired_entropy" required>
+			</div>
+			<div class = "col-sm-4">
+
+			</div>
+		</div> 
+		<br>
+		<br>
+		<br>
+		
+		<div class="option_hide option_hide_characters" style="display:none">
+		
+			<div class="left-block">
+				<div class = "col-sm-4">
+				</div>
+				<div class = "col-sm-4 text-center">
+					<label class="form-label" for="characterList">Liste de caractère :</label>
+				</div>
+				<div class = "col-sm-4">
+				</div>
+			</div> 	 
+			<br>
+			<br>
+			<div class="left-block">
+				<div class = "col-sm-4">
+				</div>
+				<div class = "col-sm-4 text-center">
+					<input type="Text" id="characterList" name="characterList">
+				</div>
+				<div class = "col-sm-4">
+				</div>
+			</div> 	 
+
+			<br>
+
+			<br>
+			
+			<div class="left-block">
+				<div class = "col-sm-4">
+				</div>
+				<div class = "col-sm-4 text-center">
+					
+			  			<label class="btn btn-primary">
+							<input type="radio" name="character_selection_method" id="ban" checked="checked" value="ban"  autocomplete="off" required> BlackList
+			  			</label>
+			  			<label class="btn btn-primary">
+							<input type="radio" name="character_selection_method" id="must"  value="must"  autocomplete="off" required> à Inclure
+			  			</label>	
+			  			<label class="btn btn-primary">
+							<input type="radio" name="character_selection_method" id="only"  value="only"  autocomplete="off" required> WhiteList
+			  			</label>
+			  	</div>
+				<div class = "col-sm-4">
+				</div>
+			</div>
+		</div> 
+
+		<div class="option_hide option_hide_words option_hide_sentence" style="display:none">
+
+
+			<div class="left-block">
+				<div class = "col-sm-4">
+				</div>
+				<div class = "col-sm-4 text-center">
+					<label class="form-label">Langue des mots :</label>
+				</div>
+				<div class = "col-sm-4">
+				</div>
+			</div>
+
+
+			<div class="left-block">
+				<div class = "col-sm-5">
+				</div>
+				<div class = "col-sm-2 text-center">
+
+			  			<label class="btn btn-primary">
+							<input type="radio" name="lang" id="fre" checked="checked" value="fre"  autocomplete="off" required> Français
+			  			</label>
+			  			<label class="btn btn-primary">
+							<input type="radio" name="lang" id="eng"  value="eng"  autocomplete="off" required> Anglais
+			  			</label>
+			  	</div>
+				<div class = "col-sm-5">
+				</div>
+			</div>
+
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<div class="left-block">
+				<div class = "col-sm-4">
+				</div>
+				<div class = "col-sm-4 text-center">
+					<label class="form-label" for="word_delimitor">Caractere de séparation :</label>
+				</div>
+				<div class = "col-sm-4">
+				</div>
+			</div>
+
+			<br>
+
+			<div class="left-block">
+				<div class = "col-sm-5">
+				</div>
+				<div class = "col-sm-2 text-center">
+					<select class="form-control" name="word_delimitor" id="word_delimitor" required>
+						<option value="colle">mots collés</option>
+						<option value="espace">espace</option>
+						<option value="tiret">-</option>
+						<option value="underscore">_</option>
+						<option value="point">.</option>
+						<option value="smiley">:)</option>
+					</select>
+				</div>
+				<div class = "col-sm-5">
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+			<br>
+			<br>
+			<br>
+		<div class="left-block text-center">
+			<input type="submit" value="Submit">
+		</div>
+
+	</form>
+
+  
+</body>
+
+<script>
+$(document).ready(function() {
+	$('input[name="method"]').click(function () {
+		var inputValue = $(this).attr("value");
+		var targetBox = $(".option_hide_" + inputValue);
+		$(".option_hide").not(targetBox).hide();
+		$(targetBox).show();
+	});
+
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	});
+
+})
+</script>
+
+
+
+
+
+</html>

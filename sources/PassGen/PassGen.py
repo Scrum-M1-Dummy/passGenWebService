@@ -103,6 +103,8 @@ class PassGen:
         print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
         print(PassGen.get_password_entropy(password,alphabet).real < desired_entropy)
         while(PassGen.get_password_entropy(password,alphabet).real < desired_entropy) or password == "":    # if password entropy lower than allowed entropy
+            print("pass", password)
+            print("genEntropy in while:", PassGen.get_password_entropy(password,alphabet).real)
             if character_selection_method == METHOD_MUST:       # if characters to include
                 mdp=''.join(secrets.choice(alphabet) for _ in range(length-len(character_list)))    # create a pass
                 for i in range(len(character_list)):  # add characters that must be included
@@ -128,9 +130,10 @@ class PassGen:
             timer=timer+1
             if(timer==360):
                 return "entropie impossible"
-        print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
-        print(PassGen.get_password_entropy(password, alphabet).real < desired_entropy)
-        return password
+        entropy = PassGen.get_password_entropy(password, alphabet).real
+        print("genEntropy:", entropy)
+        print(entropy < desired_entropy)
+        return password, entropy
 
 
 if __name__ == "__main__":
