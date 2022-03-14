@@ -52,7 +52,7 @@ def home():
     length = int(request.args.get('length'))
     if method == "words":
         word_delimitor = request.args.get('word_delimitor')
-        if word_delimitor is None:
+        if word_delimitor is None or word_delimitor=="colle":
             word_delimitor=""
         password = PassGen.get_password_words(length,word_delimitor)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk")
