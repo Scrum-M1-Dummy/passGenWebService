@@ -127,7 +127,7 @@ class PassGen:
                 password=''.join(secrets.choice(alphabet) for _ in range(length))
             timer=timer+1
             if(timer==360):
-                break   # create a password with alphabet
+                return "entropie impossible"
         print("genEntropy:", PassGen.get_password_entropy(password, alphabet).real)
         print(PassGen.get_password_entropy(password, alphabet).real < desired_entropy)
         return password
