@@ -109,4 +109,4 @@ def test():
 
 @app.route("/index", methods=["GET"])
 def index():
-    return render_template("indexTest.html")
+    return render_template("index.html")

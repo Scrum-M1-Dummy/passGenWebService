@@ -12,7 +12,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -68,7 +68,15 @@
 			</div>
 
 			<div class = "col-sm-2 text-right">
-				<label data-toggle="popover" title="Popover Header" data-content="Popover Sample Content">Sécurité du mot de passe</label>
+				<a data-toggle="popover" data-content="
+				Permet de choisir l'entropie minimum du mot de passe.<br/>
+				Plus la valeur est élevé plus le mot de passe est sécurisé.<br/>
+				La génération prendra cependant plus de temps.<br/>
+				Si laissé a 0, le premier mot de passe générer sera affiché.<br/>
+				75 est considéré comme une sécurité moyenne.<br/>
+				150 est considéré comme une sécurité forte."
+				   data-html="true" data-placement="left">Sécurité du mot de passe</a>
+
 			</div>
 			<div class = "col-sm-4">
 
@@ -229,17 +237,19 @@
 </body>
 
 <script>
-$(document).ready(function(){
-    $('input[name="method"]').click(function(){
-        var inputValue = $(this).attr("value");
-        var targetBox = $(".option_hide_" + inputValue);
-        $(".option_hide").not(targetBox).hide();
-        $(targetBox).show();
-    });
+$(document).ready(function() {
+	$('input[name="method"]').click(function () {
+		var inputValue = $(this).attr("value");
+		var targetBox = $(".option_hide_" + inputValue);
+		$(".option_hide").not(targetBox).hide();
+		$(targetBox).show();
+	});
 
-	$('a[data-toggle="popover"]').popover();
-});
+	$(function () {
+		$('[data-toggle="popover"]').popover()
+	});
 
+})
 </script>
 
 
