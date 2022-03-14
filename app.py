@@ -78,9 +78,8 @@ def home():
         desired_entropy = int(request.args.get('desired_entropy'))
         print(desired_entropy)
 
-        password = PassGen.get_password_character_choice(length=length, character_list=characterList,
+        password, entropy = PassGen.get_password_character_choice(length=length, character_list=characterList,
                                                          desired_entropy=desired_entropy, character_selection_method=character_selection_method)
-        entropy = PassGen.get_password_entropy(password, characterList)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk",
                                entropy=round(entropy.real, 3))
 
