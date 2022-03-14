@@ -103,17 +103,17 @@ class PassGen:
                     char=""
                     if character_list[i]=="\\d":
                         char=random.choice(string.digits)
-                    if character_list[i]=="\\c":
+                    elif character_list[i]=="\\c":
                         char=random.choice(string.ascii_lowercase)
-                    if character_list[i]=="\\C":
+                    elif character_list[i]=="\\C":
                         char=random.choice(string.ascii_lowercase)
-                    if character_list[i]=="\\s":
-                        char=""
-                    if character_list[i]=="\\[dev]":
+                    elif character_list[i]=="\\s":
+                        char=random.choice(['~', ':', "'", '+', '[', '\\', '@', '^', '{', '%', '(', '-', '"', '*', '|', ',', '&', '<', '`', '}', '.', '_', '=', ']', '!', '>', ';', '?', '#', '$', ')', '/'])
+                    elif character_list[i]=="\\[dev]":
                         char=" les devs vous disent bonjour "
                     else:
                         char=character_list[i]
-                        print(character_list[i])
+                    print(char)
                     mdp=mdp[:r]+char+mdp[r:]
                 password=mdp
             else:
