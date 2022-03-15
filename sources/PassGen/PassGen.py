@@ -37,14 +37,46 @@ class PassGen:
         whole_alphabet = string.digits + string.ascii_letters
         if character_selection_method == METHOD_BAN:  # ban characters from the list in the alphabet
             for i in whole_alphabet:
-                if i not in character_list:
+                sublist=""
+                for j in character_list:
+                    if j == "\\d":
+                        sublist += string.digits
+                    elif j == "\\c":
+                        sublist += string.ascii_lowercase
+                    elif j == "\\C":
+                        sublist += string.ascii_lowercase
+                    elif j == "\\s":
+                        sublist += ''.join(
+                            ['~', ':', "'", '+', '[', '\\', '@', '^', '{', '%', '(', '-', '"', '*', '|', ',', '&', '<',
+                             '`', '}', '.', '_', '=', ']', '!', '>', ';', '?', '#', '$', ')', '/'])
+                    elif j == "\\[dev]":
+                        sublist += " les devs vous disent bonjour "
+                    else:
+                        sublist += j
+                if i not in sublist:
                     restricted_alphabet += i
         elif character_selection_method == METHOD_ONLY:  # use only characters from the list in the alphabet
-            restricted_alphabet = character_list
+            for i in character_list:
+                if i == "\\d":
+                    restricted_alphabet += string.digits
+                elif i == "\\c":
+                    restricted_alphabet += string.ascii_lowercase
+                elif i == "\\C":
+                    restricted_alphabet += string.ascii_lowercase
+                elif i == "\\s":
+                    restricted_alphabet += ''.join(['~', ':', "'", '+', '[', '\\', '@', '^', '{', '%', '(', '-', '"', '*', '|', ',', '&', '<',
+                         '`', '}', '.', '_', '=', ']', '!', '>', ';', '?', '#', '$', ')', '/'])
+                elif i == "\\[dev]":
+                    restricted_alphabet += " les devs vous disent bonjour "
+                else:
+                    restricted_alphabet += i
         else:  # if method other than ban and only return the whole alphabet
             return whole_alphabet
-
-        return restricted_alphabet
+        restricted_alphabet_no_duplicates=""
+        for i in restricted_alphabet:
+            if i not in restricted_alphabet_no_duplicates:
+                restricted_alphabet_no_duplicates+=i
+        return restricted_alphabet_no_duplicates
 
     @classmethod
     def get_alphabet_french_words(cls):
