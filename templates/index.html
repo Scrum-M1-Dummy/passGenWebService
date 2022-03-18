@@ -18,6 +18,10 @@
 
 <body>
 
+		<br>
+		<br>
+
+
 	<form action="/gen"  method="get">
 		<div class = "left-block">
 
@@ -57,57 +61,68 @@
 		<br>
 		<br>
 		<br>
-		
+
+
+
+
 		<div class="left-block">
-		
+
 			<div class = "col-sm-4">
 
 			</div>
 			<div class = "col-sm-2">
 				<label class="form-label" for="length">Nombre de</label> <label class="form-label option_hide option_hide_characters" for="length"> caractères</label><label class="form-label option_hide option_hide_words option_hide_sentence" style="display:none" for="length">mots</label>
 			</div>
-
-			<div class = "col-sm-2 text-right">
+			<div class = "col-sm-2 text-right option_hide option_hide_words option_hide_sentence" style="display:none">
 				<a data-toggle="popover" data-content="
 				Permet de choisir l'entropie minimum du mot de passe.<br/>
 				Plus la valeur est élevé plus le mot de passe est sécurisé.<br/>
 				La génération prendra cependant plus de temps.<br/>
 				Si laissé a 0, le premier mot de passe générer sera affiché.<br/>
-				75 est considéré comme une sécurité moyenne.<br/>
-				150 est considéré comme une sécurité forte."
+				300 est considéré comme une sécurité moyenne.<br/>
+				750 est considéré comme une sécurité forte."
 				   data-html="true" data-placement="left">Sécurité du mot de passe</a>
 
 			</div>
 			<div class = "col-sm-4">
 
 			</div>
-			
+
 	 	</div>
 
+
 		<br>
 		<br>
 
-		<div class="left-block"> 
+
+
+
+		<div class="left-block">
 			<div class = "col-sm-4">
 
 			</div>
 			<div class = "col-sm-2 text-left">
 		 		<input type="Number" name="length" value="1" min="1" class="form-control" id="length" required>
-		 	</div>	
+		 	</div>
 
-			<div class = "col-sm-2 text-right">
-				<input type="Number" name="desired_entropy" value="0" class="form-control" id="desired_entropy" required>
+			<div class = "col-sm-2 text-right option_hide option_hide_words option_hide_sentence" style="display:none">
+				<input type="Number" name="desired_entropy" value="0" min="0" class="form-control" id="desired_entropy" required>
 			</div>
 			<div class = "col-sm-4">
 
 			</div>
-		</div> 
+		</div>
+
+
 		<br>
 		<br>
 		<br>
-		
+
+
+
+
 		<div class="option_hide option_hide_characters">
-		
+
 			<div class="left-block">
 				<div class = "col-sm-4">
 				</div>
@@ -116,7 +131,7 @@
 				</div>
 				<div class = "col-sm-4">
 				</div>
-			</div> 	 
+			</div>
 			<br>
 			<br>
 			<div class="left-block">
@@ -152,6 +167,9 @@
 				</div>
 			</div>
 		</div> 
+
+
+
 
 		<div class="option_hide option_hide_words option_hide_sentence" style="display:none">
 

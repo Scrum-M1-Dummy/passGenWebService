@@ -1,3 +1,87 @@
-<p>Password:{{password}}</p>
-<p>Entropy:{{entropy}}</p>
-<p>Hello</p>
+<!doctype html>
+<html lang="en">
+<style>
+.error {color: #FF0000;}
+</style>
+<head>
+
+  <meta charset="utf-8">
+  <title>Password Generator</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <br/>
+    <br/>
+
+    <div class = "left-block">
+
+            <div class = "col-sm-4">
+            </div>
+            <div class = "col-sm-4 text-center">
+                <label>Votre mot de Passe :</label><p>{{password}}<p>
+            </div>
+            <div class = "col-sm-4">
+            </div>
+
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class = "left-block">
+
+            <div class = "col-sm-3">
+            </div>
+            <div class = "col-sm-6 text-center">
+                    <a data-toggle="popover" data-content="
+                    Indique l'entropie du mot de passe.<br/>
+                    Plus la valeur est élevé plus le mot de passe est sécurisé.<br/>
+                    300 est considéré comme une sécurité moyenne.<br/>
+                    750 est considéré comme une sécurité forte."
+                       data-html="true" data-placement="left">Sécurité du mot de passe : </a> <p>{{entropy}}</p>
+            </div>
+            <div class = "col-sm-3">
+            </div>
+
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <div class = "left-block">
+
+            <div class = "col-sm-4">
+            </div>
+            <div class = "col-sm-4 text-center">
+                    <button onclick="location.href='/index'" type="button" class="btn btn-primary">Generer un autre mot de passe</button>
+            </div>
+            <div class = "col-sm-4">
+            </div>
+
+    </div>
+
+
+</body>
+<script>
+
+$(document).ready(function() {
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+
+})
+</script>
+</html>
+
