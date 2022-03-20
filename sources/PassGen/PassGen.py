@@ -37,7 +37,7 @@ class PassGen:
         whole_alphabet = string.digits + string.ascii_letters
         if character_selection_method == METHOD_BAN:  # ban characters from the list in the alphabet
             for i in whole_alphabet:
-                sublist=""
+                sublist = ""
                 for j in character_list:
                     if j == "\\d":
                         sublist += string.digits
@@ -64,7 +64,8 @@ class PassGen:
                 elif i == "\\C":
                     restricted_alphabet += string.ascii_lowercase
                 elif i == "\\s":
-                    restricted_alphabet += ''.join(['~', ':', "'", '+', '[', '\\', '@', '^', '{', '%', '(', '-', '"', '*', '|', ',', '&', '<',
+                    restricted_alphabet += ''.join(
+                        ['~', ':', "'", '+', '[', '\\', '@', '^', '{', '%', '(', '-', '"', '*', '|', ',', '&', '<',
                          '`', '}', '.', '_', '=', ']', '!', '>', ';', '?', '#', '$', ')', '/'])
                 elif i == "\\[dev]":
                     restricted_alphabet += " les devs vous disent bonjour "
@@ -72,10 +73,10 @@ class PassGen:
                     restricted_alphabet += i
         else:  # if method other than ban and only return the whole alphabet
             return whole_alphabet
-        restricted_alphabet_no_duplicates=""
+        restricted_alphabet_no_duplicates = ""
         for i in restricted_alphabet:
             if i not in restricted_alphabet_no_duplicates:
-                restricted_alphabet_no_duplicates+=i
+                restricted_alphabet_no_duplicates += i
         return restricted_alphabet_no_duplicates
 
     @classmethod
@@ -103,7 +104,7 @@ class PassGen:
         while (entropy := PassGen.get_password_entropy(password, alphabet).real) <= desired_entropy:
             print("nono")
             password = word_delimitor.join(secrets.choice(alphabet) for _ in range(length))
-            if timer == 360:
+            if (timer := timer + 1) > 360:
                 entropy = PassGen.get_password_entropy(password, alphabet).real
                 return "entropie impossible", entropy
 
@@ -129,7 +130,7 @@ class PassGen:
         timer = 0
         while (entropy := PassGen.get_password_entropy(password, alphabet).real) <= desired_entropy:
             password = pe.gen_phrase(length, word_delimitor)
-            if timer == 360:
+            if (timer := timer + 1) > 360:
                 entropy = PassGen.get_password_entropy(password, alphabet).real
                 return "entropie impossible", entropy
 
@@ -157,7 +158,7 @@ class PassGen:
         password = ""
         entropy = 0
         while ((entropy := PassGen.get_password_entropy(password,
-                                            alphabet).real) < desired_entropy) or password == "":  # if password entropy lower than allowed entropy
+                                                        alphabet).real) < desired_entropy) or password == "":  # if password entropy lower than allowed entropy
             print("pass", password)
             print("genEntropy in while:", entropy)
             if character_selection_method == METHOD_MUST:  # if characters to include
