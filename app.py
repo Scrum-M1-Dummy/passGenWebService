@@ -49,8 +49,10 @@ def home():
     method = request.args.get('method')
     if method is None:
         return render_template('error.html', title='Bonjour', description="stuff idk")
-    length = int(request.args.get('length'))
+    length = 0
+
     if method == "words":
+        length = int(request.args.get('lengthWord'))
         word_delimitor = request.args.get('word_delimitor')
         desired_entropy = int(request.args.get('desired_entropy'))
         if word_delimitor is None or word_delimitor=="colle":
@@ -58,6 +60,7 @@ def home():
         password, entropy = PassGen.get_password_words(length, word_delimitor, desired_entropy=desired_entropy)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "sentence":
+        length = int(request.args.get('lengthWord'))
         word_delimitor = request.args.get('word_delimitor')
         desired_entropy = int(request.args.get('desired_entropy'))
         if word_delimitor is None:
@@ -70,7 +73,7 @@ def home():
         '''character_list = request.args.get('characterList')
         character_selection_method = request.args.get('character_selection_method').lower()
         password = get_password_character_choice()'''
-        length = int(request.args.get('length'))
+        length = int(request.args.get('lengthCharacter'))
         characterString = request.args.get('characterList')
         characterList=[]
         ct=0
@@ -126,4 +129,4 @@ def test():
 
 @app.route("/index", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("indexMultipleField.html")
