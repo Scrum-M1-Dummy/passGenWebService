@@ -54,10 +54,11 @@ def home():
     if method == "words":
         length = int(request.args.get('lengthWord'))
         word_delimitor = request.args.get('word_delimitor')
+        lang = request.args.get('lang')
         desired_entropy = int(request.args.get('desired_entropy'))
         if word_delimitor is None or word_delimitor=="colle":
             word_delimitor=""
-        password, entropy = PassGen.get_password_words(length, word_delimitor, desired_entropy=desired_entropy)
+        password, entropy = PassGen.get_password_words(length, lang, word_delimitor, desired_entropy=desired_entropy)
         return render_template('home.html', password=password, title='Bonjour', description="stuff idk", entropy=round(entropy.real, 3))
     elif method == "sentence":
         length = int(request.args.get('lengthWord'))

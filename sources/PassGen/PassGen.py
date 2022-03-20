@@ -88,14 +88,17 @@ class PassGen:
         return DataGetter.get_french_words()
 
     @classmethod
-    def get_password_words(cls, length, word_delimitor="-", desired_entropy=0):
+    def get_password_words(cls, length, lang, word_delimitor="-", desired_entropy=0):
         """
         @param length: int
             the number of words to put in the password
         @return: string
             a password composed of words separated by the word_delimitor
         """
-        alphabet = DataGetter.get_french_words()
+        if lang == "fre":
+            alphabet = DataGetter.get_french_words()
+        elif lang == "eng":
+            alphabet = DataGetter.get_ang_sentences()
 
         password = ""
         entropy = 0
