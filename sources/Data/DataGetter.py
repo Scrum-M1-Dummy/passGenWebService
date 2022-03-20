@@ -18,8 +18,11 @@ class DataGetter:
             file1 = open(dataPath + fileName + ".stop",'r')
             Lines = file1.readlines()
             for Line in Lines:
-                stopwords.append(Line)
+                stopwords.append(Line[:-1])
+            print(stopwords)
+            print("file found")
         except FileNotFoundError:
+            print("not found file")
             pass     
         with open(dataPath + fileName) as file:
             if seplines:
