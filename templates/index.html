@@ -129,7 +129,14 @@
 				<div class = "col-sm-4">
 				</div>
 				<div class = "col-sm-4 text-center">
-					<label class="form-label" for="characterList">Liste de caractère :</label>
+					<a data-toggle="popover" data-content="
+					Commandes uniques :<br/>
+					“\d”: ajoute un chiffre peu importe lequel<br/>
+					“\c”: ajoute un caractère en minuscule peu importe lequel<br/>
+					“\C”: ajoute un caractère en majuscule peu importe lequel<br/>
+					“\s”: ajoute un caractère spécial peu importe lequel<br/>
+					Exemple : abc\d => “a”,”b”,”c” et un chiffre au hasard."
+				   data-html="true" data-placement="left">Liste de caractère :</a>
 				</div>
 				<div class = "col-sm-4">
 				</div>
