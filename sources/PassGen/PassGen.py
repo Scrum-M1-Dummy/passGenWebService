@@ -100,7 +100,8 @@ class PassGen:
         entropy = 0
 
         timer = 0
-        while (entropy := PassGen.get_password_entropy(password, alphabet).real) < desired_entropy:
+        while (entropy := PassGen.get_password_entropy(password, alphabet).real) <= desired_entropy:
+            print("nono")
             password = word_delimitor.join(secrets.choice(alphabet) for _ in range(length))
             if timer == 360:
                 entropy = PassGen.get_password_entropy(password, alphabet).real
@@ -124,8 +125,9 @@ class PassGen:
             alphabet = DataGetter.get_ang_sentences()
 
         password = ""
+        entropy = -1
         timer = 0
-        while (entropy := PassGen.get_password_entropy(password, alphabet).real) < desired_entropy:
+        while (entropy := PassGen.get_password_entropy(password, alphabet).real) <= desired_entropy:
             password = pe.gen_phrase(length, word_delimitor)
             if timer == 360:
                 entropy = PassGen.get_password_entropy(password, alphabet).real
